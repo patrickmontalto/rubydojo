@@ -8,20 +8,28 @@
 
 /* Begin PBXBuildFile section */
 		3AF59EF71D063A01004A2778 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AF59EF61D063A01004A2778 /* AppDelegate.swift */; };
-		3AF59EF91D063A01004A2778 /* CourseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AF59EF81D063A01004A2778 /* CourseViewController.swift */; };
+		3AF59EF91D063A01004A2778 /* LessonViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AF59EF81D063A01004A2778 /* LessonViewController.swift */; };
 		3AF59EFC1D063A01004A2778 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3AF59EFA1D063A01004A2778 /* Main.storyboard */; };
 		3AF59EFE1D063A01004A2778 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3AF59EFD1D063A01004A2778 /* Assets.xcassets */; };
 		3AF59F011D063A01004A2778 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3AF59EFF1D063A01004A2778 /* LaunchScreen.storyboard */; };
+		CD4690A91D0A436200FAEF30 /* StringConvenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD4690A81D0A436200FAEF30 /* StringConvenience.swift */; };
+		CD8A784E1D10CB2400850BC2 /* TextBoxView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD8A784D1D10CB2400850BC2 /* TextBoxView.swift */; };
+		CD8A78501D10DAD000850BC2 /* TapBoxView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD8A784F1D10DAD000850BC2 /* TapBoxView.swift */; };
+		CD8A78521D10DCBE00850BC2 /* TextFieldConvenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD8A78511D10DCBE00850BC2 /* TextFieldConvenience.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		3AF59EF31D063A00004A2778 /* Ruby Dojo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Ruby Dojo.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3AF59EF61D063A01004A2778 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		3AF59EF81D063A01004A2778 /* CourseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseViewController.swift; sourceTree = "<group>"; };
+		3AF59EF81D063A01004A2778 /* LessonViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LessonViewController.swift; sourceTree = "<group>"; };
 		3AF59EFB1D063A01004A2778 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		3AF59EFD1D063A01004A2778 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		3AF59F001D063A01004A2778 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		3AF59F021D063A01004A2778 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		CD4690A81D0A436200FAEF30 /* StringConvenience.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StringConvenience.swift; sourceTree = "<group>"; };
+		CD8A784D1D10CB2400850BC2 /* TextBoxView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextBoxView.swift; sourceTree = "<group>"; };
+		CD8A784F1D10DAD000850BC2 /* TapBoxView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TapBoxView.swift; sourceTree = "<group>"; };
+		CD8A78511D10DCBE00850BC2 /* TextFieldConvenience.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextFieldConvenience.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -55,13 +63,25 @@
 			isa = PBXGroup;
 			children = (
 				3AF59EF61D063A01004A2778 /* AppDelegate.swift */,
-				3AF59EF81D063A01004A2778 /* CourseViewController.swift */,
+				3AF59EF81D063A01004A2778 /* LessonViewController.swift */,
+				CD8A784C1D10CB0300850BC2 /* View */,
 				3AF59EFA1D063A01004A2778 /* Main.storyboard */,
 				3AF59EFD1D063A01004A2778 /* Assets.xcassets */,
 				3AF59EFF1D063A01004A2778 /* LaunchScreen.storyboard */,
 				3AF59F021D063A01004A2778 /* Info.plist */,
+				CD4690A81D0A436200FAEF30 /* StringConvenience.swift */,
+				CD8A78511D10DCBE00850BC2 /* TextFieldConvenience.swift */,
 			);
 			path = "Ruby Dojo";
+			sourceTree = "<group>";
+		};
+		CD8A784C1D10CB0300850BC2 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				CD8A784D1D10CB2400850BC2 /* TextBoxView.swift */,
+				CD8A784F1D10DAD000850BC2 /* TapBoxView.swift */,
+			);
+			name = View;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -135,8 +155,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3AF59EF91D063A01004A2778 /* CourseViewController.swift in Sources */,
+				3AF59EF91D063A01004A2778 /* LessonViewController.swift in Sources */,
+				CD8A78521D10DCBE00850BC2 /* TextFieldConvenience.swift in Sources */,
+				CD8A784E1D10CB2400850BC2 /* TextBoxView.swift in Sources */,
+				CD8A78501D10DAD000850BC2 /* TapBoxView.swift in Sources */,
 				3AF59EF71D063A01004A2778 /* AppDelegate.swift in Sources */,
+				CD4690A91D0A436200FAEF30 /* StringConvenience.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
