@@ -20,8 +20,9 @@ class LessonViewController: UIViewController, UITextFieldDelegate, NSLayoutManag
         textView.layer.borderWidth = 1.0
         textView.editable = false
         textView.layoutManager.delegate = self
+        textView.backgroundColor = Solarized.BackgroundColor
         
-        textView.text = "var name = \"TEXTBOX\nvar otherName = \"TEXTBOX\nTAPBOX = 22.0"
+        textView.text = "@name = \"TEXTBOX\n@theOtherName = \"TEXTBOX\nTAPBOX = 22.0"
                 // TODO: Make textbox stretch to fill until margin, leaving just enough space for one quotation mark
         /* 
          Need to add quotation mark after box.
@@ -53,7 +54,10 @@ class LessonViewController: UIViewController, UITextFieldDelegate, NSLayoutManag
         let menuItem2 = UIMenuItem(title: "+", action: #selector(LessonViewController.onMenu2(_:)))
         menuController.menuItems = [menuItem1, menuItem2]
         
-        
+    }
+    
+    func didRecognizeTap() {
+        print("tapped!")
     }
     
     internal func onMenu1(sender: UIMenuItem) {
@@ -94,6 +98,11 @@ class LessonViewController: UIViewController, UITextFieldDelegate, NSLayoutManag
         textField.delegate = self
         textField.placeholder = "Tap me!"
         // TODO: expand/shrink text after tapBox to adjust to right of growing/shrinking tapBox
+        // MARK: Add tap gesture recognizer
+        let aSelector: Selector = #selector(LessonViewController.didRecognizeTap)
+        let tapGesture = UITapGestureRecognizer(target: self, action: aSelector)
+        textView.superview?.addGestureRecognizer(tapGesture)
+
     }
     
     // MARK: Text Box

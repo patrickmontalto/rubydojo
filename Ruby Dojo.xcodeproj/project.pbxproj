@@ -16,6 +16,7 @@
 		CD8A784E1D10CB2400850BC2 /* TextBoxView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD8A784D1D10CB2400850BC2 /* TextBoxView.swift */; };
 		CD8A78501D10DAD000850BC2 /* TapBoxView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD8A784F1D10DAD000850BC2 /* TapBoxView.swift */; };
 		CD8A78521D10DCBE00850BC2 /* TextFieldConvenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD8A78511D10DCBE00850BC2 /* TextFieldConvenience.swift */; };
+		CDEF2BC61D1F768900B7A6DB /* Themes.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDEF2BC51D1F768900B7A6DB /* Themes.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,6 +31,7 @@
 		CD8A784D1D10CB2400850BC2 /* TextBoxView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextBoxView.swift; sourceTree = "<group>"; };
 		CD8A784F1D10DAD000850BC2 /* TapBoxView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TapBoxView.swift; sourceTree = "<group>"; };
 		CD8A78511D10DCBE00850BC2 /* TextFieldConvenience.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextFieldConvenience.swift; sourceTree = "<group>"; };
+		CDEF2BC51D1F768900B7A6DB /* Themes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Themes.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -71,6 +73,7 @@
 				3AF59F021D063A01004A2778 /* Info.plist */,
 				CD4690A81D0A436200FAEF30 /* StringConvenience.swift */,
 				CD8A78511D10DCBE00850BC2 /* TextFieldConvenience.swift */,
+				CDEF2BC51D1F768900B7A6DB /* Themes.swift */,
 			);
 			path = "Ruby Dojo";
 			sourceTree = "<group>";
@@ -155,6 +158,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CDEF2BC61D1F768900B7A6DB /* Themes.swift in Sources */,
 				3AF59EF91D063A01004A2778 /* LessonViewController.swift in Sources */,
 				CD8A78521D10DCBE00850BC2 /* TextFieldConvenience.swift in Sources */,
 				CD8A784E1D10CB2400850BC2 /* TextBoxView.swift in Sources */,

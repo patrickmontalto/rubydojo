@@ -14,10 +14,11 @@ class TextBoxView: UITextField {
         super.init(frame: frame)
         self.placeholder = "Tap me!"
         self.font = UIFont.systemFontOfSize(14)
-        self.layer.borderColor = UIColor.blackColor().CGColor
+        self.layer.borderColor = UIColor.grayColor().CGColor
         self.layer.borderWidth = 1.0
         self.backgroundColor = UIColor.whiteColor()
         self.layer.cornerRadius = 4.0
+        self.backgroundColor = Solarized.BackgroundColor
     }
     
     required init?(coder aDecoder: NSCoder) {

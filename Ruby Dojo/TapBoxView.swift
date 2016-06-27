@@ -15,11 +15,12 @@ class TapBoxView: UITextField {
     override init(frame: CGRect) {
         super.init(frame: frame)
         self.font = UIFont.systemFontOfSize(14)
-        self.layer.borderColor = UIColor.blackColor().CGColor
+        self.layer.borderColor = UIColor.grayColor().CGColor
         self.layer.borderWidth = 1.0
         self.backgroundColor = UIColor.whiteColor()
         self.layer.cornerRadius = 4.0
         self.tintColor = UIColor.clearColor()
+        self.backgroundColor = Solarized.BackgroundColor
         
     }
     
