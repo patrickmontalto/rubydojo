@@ -8,22 +8,33 @@
 
 import UIKit
 
-class LessonViewController: UIViewController, UITextFieldDelegate, NSLayoutManagerDelegate {
+class LessonViewController: UIViewController, UITextFieldDelegate, UITextViewDelegate, NSLayoutManagerDelegate {
+    @IBOutlet var instructionsTextView: UITextView!
 
-    @IBOutlet var textView: UITextView!
+    @IBOutlet var instructionsHeightConstraint: NSLayoutConstraint!
+    var textView: UITextView!
+    var textStorage: NSTextStorage!
     
     var activeTextField: UITextField?
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        instructionsTextView.userInteractionEnabled = false
+        instructionsTextView.text = "Hello! Welcome to the Ruby Dojo! \nThis is the first lesson."
+        instructionsHeightConstraint.constant = heightForTextView(instructionsTextView)
+        
+        instructionsTextView.layer.borderColor = UIColor.greenColor().CGColor
+        instructionsTextView.layer.borderWidth = 1.0
+        
+        createTextView()
+        textView.font = UIFont(name: "Menlo", size: 13.0)
         textView.layer.borderColor = UIColor.redColor().CGColor
         textView.layer.borderWidth = 1.0
         textView.editable = false
         textView.layoutManager.delegate = self
         textView.backgroundColor = Solarized.BackgroundColor
         
-        textView.text = "@name = \"TEXTBOX\n@theOtherName = \"TEXTBOX\nTAPBOX = 22.0"
-                // TODO: Make textbox stretch to fill until margin, leaving just enough space for one quotation mark
+        // TODO: Make textbox stretch to fill until margin, leaving just enough space for one quotation mark
         /* 
          Need to add quotation mark after box.
          The trick will be to keep adding blank characters after the 'TEXTBOX' until the cursor is two keys away from
@@ -176,6 +187,13 @@ class LessonViewController: UIViewController, UITextFieldDelegate, NSLayoutManag
         }
     }
     
+    func heightForTextView(textView: UITextView) -> CGFloat {
+        let fixedWidth = textView.frame.size.width
+        let sizeThatFitsContent = textView.sizeThatFits(CGSize(width: fixedWidth, height: CGFloat.max))
+        return sizeThatFitsContent.height
+        
+    }
+    
     // MARK: Text Field Resizing to Content
     func resizeTextField(textField: UITextField) {
         textField.placeholder = ""
@@ -196,6 +214,48 @@ class LessonViewController: UIViewController, UITextFieldDelegate, NSLayoutManag
     func textFieldShouldBeginEditing(textField: UITextField) -> Bool {
         activeTextField = textField
         return true
+    }
+    
+    // MARK: Create Textview
+    func createTextView() {
+        // 1. Create the text storage that backs the editor
+        // let attrs = [NSFontAttributeName : UIFont.preferredFontForTextStyle(UIFontTextStyleBody)]
+        let attrs = [NSFontAttributeName : UIFont(name: "Menlo", size: 12.0)!]
+        let attrString = NSAttributedString(string: "1|@name = \"TEXTBOX\n2|@theOtherName = \"TEXTBOX\nTAPBOX = 22.0", attributes: attrs)
+        textStorage = SyntaxHighlightingTextStorage()
+        textStorage.appendAttributedString(attrString)
+        
+        let newTextViewRect = view.bounds
+        
+        // 2. Create the layout manager
+        let layoutManager = NSLayoutManager()
+        
+        // 3. Create a text container
+        let containerSize = CGSize(width: newTextViewRect.width, height: CGFloat.max)
+        let container = NSTextContainer(size: containerSize)
+        container.widthTracksTextView = true
+        layoutManager.addTextContainer(container)
+        textStorage.addLayoutManager(layoutManager)
+        
+        // 4. Create a UITextView
+        textView = UITextView(frame: newTextViewRect, textContainer: container)
+        textView.delegate = self
+        textView.translatesAutoresizingMaskIntoConstraints = false
+        
+        view.addSubview(textView)
+        
+        // 5. Add Constraints
+        
+        let topConstraint = NSLayoutConstraint(item: textView, attribute: .Top, relatedBy: .Equal, toItem: instructionsTextView, attribute: .Bottom, multiplier: 1, constant: 0)
+        view.addConstraint(topConstraint)
+        
+        let bottomConstraint = NSLayoutConstraint(item: textView, attribute: .Bottom, relatedBy: .Equal, toItem: view, attribute: .Bottom, multiplier: 1, constant: 0)
+        view.addConstraint(bottomConstraint)
+        
+        let widthConstraint = NSLayoutConstraint(item: textView, attribute: .Width, relatedBy: .Equal, toItem: view, attribute: .Width, multiplier: 1, constant: 0)
+        view.addConstraint(widthConstraint)
+        
+        
     }
 
 
