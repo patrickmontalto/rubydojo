@@ -12,6 +12,7 @@ class LessonViewController: UIViewController, UITextFieldDelegate, UITextViewDel
     @IBOutlet var instructionsTextView: UITextView!
 
     @IBOutlet var instructionsHeightConstraint: NSLayoutConstraint!
+    
     var textView: UITextView!
     var textStorage: NSTextStorage!
     
@@ -30,19 +31,15 @@ class LessonViewController: UIViewController, UITextFieldDelegate, UITextViewDel
         textView.font = UIFont(name: "Menlo", size: 13.0)
         textView.layer.borderColor = UIColor.redColor().CGColor
         textView.layer.borderWidth = 1.0
-        textView.editable = false
+        textView.editable = true
         textView.layoutManager.delegate = self
         textView.backgroundColor = Solarized.BackgroundColor
         
         // TODO: Make textbox stretch to fill until margin, leaving just enough space for one quotation mark
         /* 
          Need to add quotation mark after box.
-         The trick will be to keep adding blank characters after the 'TEXTBOX' until the cursor is two keys away from
-         returning to a new line, then a quotation mark is inserted (for now, a single quote)
          */
-        print("The textView's origin x is: \(textView.frame.origin.x)")
-        print("The textField's origin x is: \(textView.frame.width)")
-    
+        
         while textView.text.containsString("TEXTBOX") {
             substituteTextbox()
             removePlaceHolder("TEXTBOX")
@@ -52,7 +49,10 @@ class LessonViewController: UIViewController, UITextFieldDelegate, UITextViewDel
             substituteTapBox()
             removePlaceHolder("TAPBOX")
         }
-        //addTrailingQuotation(withCurrentRowCount: rowCount)
+        
+        
+        // Set exclusion paths
+        drawExclusionPaths()
         
         // MARK: UIMenuController
         // Make controller
@@ -64,7 +64,18 @@ class LessonViewController: UIViewController, UITextFieldDelegate, UITextViewDel
         let menuItem1 = UIMenuItem(title: "Harry the Nematoad", action: #selector(LessonViewController.onMenu1(_:)))
         let menuItem2 = UIMenuItem(title: "+", action: #selector(LessonViewController.onMenu2(_:)))
         menuController.menuItems = [menuItem1, menuItem2]
-        
+    }
+    
+    // MARK: Exclusion Paths
+    func drawExclusionPaths() {
+        // Reset exclusion paths
+        textView.textContainer.exclusionPaths = []
+
+        // add exclusion paths
+        for subView in textView.subviews {
+            let convertedFrame = textView.convertRect(subView.frame, fromView: textView)
+            textView.textContainer.exclusionPaths = [UIBezierPath(rect: convertedFrame)]
+        }
     }
     
     func didRecognizeTap() {
@@ -75,10 +86,12 @@ class LessonViewController: UIViewController, UITextFieldDelegate, UITextViewDel
         // TODO: Need to update the tapped textbox's text value here...
         activeTextField?.text = "Harry The Nematoad"
         resizeTextField(activeTextField!)
+        drawExclusionPaths()
     }
     internal func onMenu2(sender: UIMenuItem) {
         activeTextField?.text = "+"
         resizeTextField(activeTextField!)
+        drawExclusionPaths()
     }
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
@@ -101,7 +114,7 @@ class LessonViewController: UIViewController, UITextFieldDelegate, UITextViewDel
         
         let width: CGFloat = 60
         
-        let finalFrame = CGRect(x: resultFrame.origin.x, y: resultFrame.origin.y, width: width, height: 17.5)
+        let finalFrame = CGRect(x: textView.frame.origin.x + resultFrame.origin.x, y: textView.frame.origin.y + resultFrame.origin.y, width: width, height: 17.5)
 
         let textField = TapBoxView(frame: finalFrame)
         textField.addLeftPadding(2.0)
@@ -145,10 +158,14 @@ class LessonViewController: UIViewController, UITextFieldDelegate, UITextViewDel
         
         let finalFrame = CGRect(x: resultFrame.origin.x, y: resultFrame.origin.y + 1.5, width: width, height: 17.5)
         
-        //print("x:\(resultFrame.origin.x), y:\(resultFrame.origin.y)")
         let textField = TextBoxView(frame: finalFrame)
         textField.addLeftPadding(4.0)
         textView.addSubview(textField)
+        
+//        // Exclusion Paths:
+//        let convertedFrame = textView.convertRect(textField.frame, fromView: textView)
+//        textView.textContainer.exclusionPaths = [UIBezierPath(rect: convertedFrame)]
+
 
     }
     
@@ -156,37 +173,13 @@ class LessonViewController: UIViewController, UITextFieldDelegate, UITextViewDel
         return round( (textView.contentSize.height - textView.textContainerInset.top - textView.textContainerInset.bottom) / (textView.font!.lineHeight))
     }
     
-    // TODO: Remove TEXTBOX placeholder
+    // MARK: Remove TEXTBOX/TAPBOX placeholder
     func removePlaceHolder(placeholder: String) {
         let truncated = textView.text.stringByReplacingFirstOccurrenceOfString(placeholder, withString: " ")
         textView.text = truncated
     }
     
-    // Need the ability to add a trailing quotation for any given box on any line, not just the last line!
-    
-    func addTrailingQuotation(withCurrentRowCount initialRowCount: CGFloat) {
-        // make row count a variable, keep calculating at the end of each loop.
-        var currentRowCount = countRows()
-        while currentRowCount <= initialRowCount {
-            // Keep adding blank characters until we increase the number of rows in the textView
-            textView.text = textView.text.stringByAppendingString("_")
-            print("adding character...")
-            currentRowCount = countRows()
-        }
-        print(countRows())
-        
-        if countRows() > initialRowCount {
-            // Remove last two characters, the one on the new line and the last blank on the prior line
-            var truncated = textView.text
-            truncated.removeAtIndex(truncated.endIndex.predecessor())
-            truncated.removeAtIndex(truncated.endIndex.predecessor())
-            textView.text = truncated
-            // Append closing quotation mark
-            textView.text = textView.text.stringByAppendingString("'")
-            
-        }
-    }
-    
+    // MARK: Instructions view dynamic height
     func heightForTextView(textView: UITextView) -> CGFloat {
         let fixedWidth = textView.frame.size.width
         let sizeThatFitsContent = textView.sizeThatFits(CGSize(width: fixedWidth, height: CGFloat.max))
@@ -194,7 +187,7 @@ class LessonViewController: UIViewController, UITextFieldDelegate, UITextViewDel
         
     }
     
-    // MARK: Text Field Resizing to Content
+    // MARK: Text Field Resizing to Content for Tapboxes
     func resizeTextField(textField: UITextField) {
         textField.placeholder = ""
         textField.sizeToFit()
@@ -216,12 +209,12 @@ class LessonViewController: UIViewController, UITextFieldDelegate, UITextViewDel
         return true
     }
     
-    // MARK: Create Textview
+    // MARK: Create Textview: Main 'Text Editor'
     func createTextView() {
         // 1. Create the text storage that backs the editor
         // let attrs = [NSFontAttributeName : UIFont.preferredFontForTextStyle(UIFontTextStyleBody)]
         let attrs = [NSFontAttributeName : UIFont(name: "Menlo", size: 12.0)!]
-        let attrString = NSAttributedString(string: "1|@name = \"TEXTBOX\n2|@theOtherName = \"TEXTBOX\nTAPBOX = 22.0", attributes: attrs)
+        let attrString = NSAttributedString(string: "1|@name = \"TEXTBOX test\"\n2|@theOtherName = \"TEXTBOX \"\nTAPBOX = 22.0", attributes: attrs)
         textStorage = SyntaxHighlightingTextStorage()
         textStorage.appendAttributedString(attrString)
         
@@ -234,6 +227,7 @@ class LessonViewController: UIViewController, UITextFieldDelegate, UITextViewDel
         let containerSize = CGSize(width: newTextViewRect.width, height: CGFloat.max)
         let container = NSTextContainer(size: containerSize)
         container.widthTracksTextView = true
+        
         layoutManager.addTextContainer(container)
         textStorage.addLayoutManager(layoutManager)
         
