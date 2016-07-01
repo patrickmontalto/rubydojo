@@ -68,14 +68,25 @@ class LessonViewController: UIViewController, UITextFieldDelegate, UITextViewDel
     
     // MARK: Exclusion Paths
     func drawExclusionPaths() {
-        // Reset exclusion paths
-        textView.textContainer.exclusionPaths = []
-
-        // add exclusion paths
+        
+        // Create empty array to hold exclusion paths
+        var exclusionPaths = [UIBezierPath]()
+        
+        // TODO: Iterate over subviews using filter closure instead of if statement
         for subView in textView.subviews {
-            let convertedFrame = textView.convertRect(subView.frame, fromView: textView)
-            textView.textContainer.exclusionPaths = [UIBezierPath(rect: convertedFrame)]
+            if subView.dynamicType == Ruby_Dojo.TextBoxView || subView.dynamicType == Ruby_Dojo.TapBoxView {
+                let convertedFrame = textView.convertRect(subView.frame, fromView: textView)
+                
+                // TODO: Make exclusion paths smaller to fix text closer to it.
+                // TODO: Make a calculated value
+                let condensedFrame = CGRect(x: convertedFrame.origin.x + 10.0 , y: convertedFrame.origin.y, width: convertedFrame.width - 13.0 , height: convertedFrame.height - 13.0)
+                let path = UIBezierPath(rect: condensedFrame)
+                exclusionPaths.append(path)
+            }
         }
+        
+        // Set exclusion paths
+        textView.textContainer.exclusionPaths = exclusionPaths
     }
     
     func didRecognizeTap() {
@@ -86,11 +97,15 @@ class LessonViewController: UIViewController, UITextFieldDelegate, UITextViewDel
         // TODO: Need to update the tapped textbox's text value here...
         activeTextField?.text = "Harry The Nematoad"
         resizeTextField(activeTextField!)
+        textView.textContainer.exclusionPaths = []
         drawExclusionPaths()
+        // TODO: Need to reset the layout on the textView once menu is tapped        
     }
     internal func onMenu2(sender: UIMenuItem) {
         activeTextField?.text = "+"
         resizeTextField(activeTextField!)
+        textView.textContainer.exclusionPaths = []
+
         drawExclusionPaths()
     }
     override func viewDidAppear(animated: Bool) {
@@ -138,12 +153,14 @@ class LessonViewController: UIViewController, UITextFieldDelegate, UITextViewDel
         
         let pos2: UITextPosition = textView.positionFromPosition(textView.beginningOfDocument, offset: offset2)!
         let pos1: UITextPosition = textView.positionFromPosition(textView.beginningOfDocument, offset: offset1)!
-        //print("pos1: \(pos1), pos2: \(pos2)")
+        
         let range: UITextRange = textView.textRangeFromPosition(pos1, toPosition: pos2)!
         
         let resultFrame: CGRect = textView.firstRectForRange(range)
         let screenWidth = UIScreen.mainScreen().bounds.width
         var rightOffset = CGFloat()
+        
+        // TODO: Textbox fills screen fine on 6+, not on 6 or 5s
         switch (screenWidth) {
         case 320.0:
             rightOffset = -100
@@ -162,9 +179,7 @@ class LessonViewController: UIViewController, UITextFieldDelegate, UITextViewDel
         textField.addLeftPadding(4.0)
         textView.addSubview(textField)
         
-//        // Exclusion Paths:
-//        let convertedFrame = textView.convertRect(textField.frame, fromView: textView)
-//        textView.textContainer.exclusionPaths = [UIBezierPath(rect: convertedFrame)]
+        // MARK: Add exclusion paths here instead?
 
 
     }
@@ -214,7 +229,7 @@ class LessonViewController: UIViewController, UITextFieldDelegate, UITextViewDel
         // 1. Create the text storage that backs the editor
         // let attrs = [NSFontAttributeName : UIFont.preferredFontForTextStyle(UIFontTextStyleBody)]
         let attrs = [NSFontAttributeName : UIFont(name: "Menlo", size: 12.0)!]
-        let attrString = NSAttributedString(string: "1|@name = \"TEXTBOX test\"\n2|@theOtherName = \"TEXTBOX \"\nTAPBOX = 22.0", attributes: attrs)
+        let attrString = NSAttributedString(string: "1|@name = \"TEXTBOX \"\n2|@theOtherName = \"TEXTBOX \"\nTAPBOX = 22.0", attributes: attrs)
         textStorage = SyntaxHighlightingTextStorage()
         textStorage.appendAttributedString(attrString)
         
