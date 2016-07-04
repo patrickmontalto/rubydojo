@@ -51,7 +51,7 @@ class SyntaxHighlightingTextStorage: NSTextStorage {
         endEditing()
     }
     func applyStylesToRange(searchRange: NSRange) {
-        let normalAttrs = [NSForegroundColorAttributeName : UIColor.blackColor()]
+        let normalAttrs = [NSForegroundColorAttributeName : UIColor.blackColor(), NSFontAttributeName : UIFont(name: "Menlo", size: 13.0)!]
         var regex = NSRegularExpression()
         // iterate over each replacement
         for (pattern, attributes) in replacements {

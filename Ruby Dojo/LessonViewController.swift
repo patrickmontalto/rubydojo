@@ -28,31 +28,33 @@ class LessonViewController: UIViewController, UITextFieldDelegate, UITextViewDel
         instructionsTextView.layer.borderWidth = 1.0
         
         createTextView()
+        let attrs = [NSFontAttributeName : UIFont(name: "Menlo", size: 13.0)!]
+        let attrString = NSAttributedString(string: "\n ", attributes: attrs)
+        textView.textStorage.appendAttributedString(attrString)
         textView.font = UIFont(name: "Menlo", size: 13.0)
         textView.layer.borderColor = UIColor.redColor().CGColor
         textView.layer.borderWidth = 1.0
-        textView.editable = true
         textView.layoutManager.delegate = self
         textView.backgroundColor = Solarized.BackgroundColor
         
-        // TODO: Make textbox stretch to fill until margin, leaving just enough space for one quotation mark
-        /* 
-         Need to add quotation mark after box.
-         */
-        
+        // Substitute TextBoxViews
         while textView.text.containsString("TEXTBOX") {
             substituteTextbox()
             removePlaceHolder("TEXTBOX")
         }
         
+        // Substitute TapBoxViews
         while textView.text.containsString("TAPBOX") {
             substituteTapBox()
             removePlaceHolder("TAPBOX")
         }
         
-        
         // Set exclusion paths
         drawExclusionPaths()
+        
+        // Make main textview uneditable and selectable
+        textView.selectable = false
+        textView.editable = false
         
         // MARK: UIMenuController
         // Make controller
@@ -61,13 +63,16 @@ class LessonViewController: UIViewController, UITextFieldDelegate, UITextViewDel
         //menuController.arrowDirection = UIMenuControllerArrowDirection.Down
         //menuController.setTargetRect(CGRectZero, inView: self.view)
         
-        let menuItem1 = UIMenuItem(title: "Harry the Nematoad", action: #selector(LessonViewController.onMenu1(_:)))
-        let menuItem2 = UIMenuItem(title: "+", action: #selector(LessonViewController.onMenu2(_:)))
+        let menuItem1 = UIMenuItem(title: "223135", action: #selector(LessonViewController.onMenu1(_:)))
+        let menuItem2 = UIMenuItem(title: "24.0", action: #selector(LessonViewController.onMenu2(_:)))
         menuController.menuItems = [menuItem1, menuItem2]
     }
     
     // MARK: Exclusion Paths
     func drawExclusionPaths() {
+        
+        // Reset exclusion paths
+        textView.textContainer.exclusionPaths = []
         
         // Create empty array to hold exclusion paths
         var exclusionPaths = [UIBezierPath]()
@@ -78,7 +83,7 @@ class LessonViewController: UIViewController, UITextFieldDelegate, UITextViewDel
                 let convertedFrame = textView.convertRect(subView.frame, fromView: textView)
                 
                 // TODO: Make exclusion paths smaller to fix text closer to it.
-                // TODO: Make a calculated value
+                // TODO: Make a calculated value to subtract instead of magic numbers?
                 let condensedFrame = CGRect(x: convertedFrame.origin.x + 10.0 , y: convertedFrame.origin.y, width: convertedFrame.width - 13.0 , height: convertedFrame.height - 13.0)
                 let path = UIBezierPath(rect: condensedFrame)
                 exclusionPaths.append(path)
@@ -89,28 +94,22 @@ class LessonViewController: UIViewController, UITextFieldDelegate, UITextViewDel
         textView.textContainer.exclusionPaths = exclusionPaths
     }
     
+    // MARK: Test method for recognizing taps
     func didRecognizeTap() {
         print("tapped!")
     }
     
-    internal func onMenu1(sender: UIMenuItem) {
+    // MARK: Menu Actions
+    func onMenu1(sender: UIMenuItem) {
         // TODO: Need to update the tapped textbox's text value here...
-        activeTextField?.text = "Harry The Nematoad"
+        activeTextField?.text = "223135"
         resizeTextField(activeTextField!)
-        textView.textContainer.exclusionPaths = []
-        drawExclusionPaths()
-        // TODO: Need to reset the layout on the textView once menu is tapped        
-    }
-    internal func onMenu2(sender: UIMenuItem) {
-        activeTextField?.text = "+"
-        resizeTextField(activeTextField!)
-        textView.textContainer.exclusionPaths = []
-
         drawExclusionPaths()
     }
-    override func viewDidAppear(animated: Bool) {
-        super.viewDidAppear(animated)
-        
+    func onMenu2(sender: UIMenuItem) {
+        activeTextField?.text = "24.0"
+        resizeTextField(activeTextField!)
+        drawExclusionPaths()
     }
     
     // MARK: Tap Box
@@ -178,10 +177,6 @@ class LessonViewController: UIViewController, UITextFieldDelegate, UITextViewDel
         let textField = TextBoxView(frame: finalFrame)
         textField.addLeftPadding(4.0)
         textView.addSubview(textField)
-        
-        // MARK: Add exclusion paths here instead?
-
-
     }
     
     func countRows() -> CGFloat {
@@ -194,7 +189,7 @@ class LessonViewController: UIViewController, UITextFieldDelegate, UITextViewDel
         textView.text = truncated
     }
     
-    // MARK: Instructions view dynamic height
+    // MARK: Resize Instruction View's height based on content size
     func heightForTextView(textView: UITextView) -> CGFloat {
         let fixedWidth = textView.frame.size.width
         let sizeThatFitsContent = textView.sizeThatFits(CGSize(width: fixedWidth, height: CGFloat.max))
@@ -228,8 +223,8 @@ class LessonViewController: UIViewController, UITextFieldDelegate, UITextViewDel
     func createTextView() {
         // 1. Create the text storage that backs the editor
         // let attrs = [NSFontAttributeName : UIFont.preferredFontForTextStyle(UIFontTextStyleBody)]
-        let attrs = [NSFontAttributeName : UIFont(name: "Menlo", size: 12.0)!]
-        let attrString = NSAttributedString(string: "1|@name = \"TEXTBOX \"\n2|@theOtherName = \"TEXTBOX \"\nTAPBOX = 22.0", attributes: attrs)
+        let attrs = [NSFontAttributeName : UIFont(name: "Menlo", size: 13.0)!]
+        let attrString = NSAttributedString(string: "1|@name = \"TEXTBOX \"\n2|@theOtherName = \"TEXTBOX \"\n3|@myValue = TAPBOX + 22.0", attributes: attrs)
         textStorage = SyntaxHighlightingTextStorage()
         textStorage.appendAttributedString(attrString)
         
@@ -251,9 +246,11 @@ class LessonViewController: UIViewController, UITextFieldDelegate, UITextViewDel
         textView.delegate = self
         textView.translatesAutoresizingMaskIntoConstraints = false
         
+        // 5. Disable user interaction
+        
         view.addSubview(textView)
         
-        // 5. Add Constraints
+        // 6. Add Constraints
         
         let topConstraint = NSLayoutConstraint(item: textView, attribute: .Top, relatedBy: .Equal, toItem: instructionsTextView, attribute: .Bottom, multiplier: 1, constant: 0)
         view.addConstraint(topConstraint)
