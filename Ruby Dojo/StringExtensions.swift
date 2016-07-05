@@ -1,5 +1,5 @@
 //
-//  StringConvenience.swift
+//  StringExtensions.swift
 //  Ruby Dojo
 //
 //  Created by Patrick Montalto on 6/9/16.

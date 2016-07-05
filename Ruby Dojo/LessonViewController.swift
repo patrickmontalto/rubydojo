@@ -57,14 +57,22 @@ class LessonViewController: UIViewController, UITextFieldDelegate, UITextViewDel
         textView.editable = false
         
         // MARK: UIMenuController
-        // Make controller
+        prepareMenuController()
+        
+        // MARK: Add tap gesture recognizer for dismissing keyboard
+        dismissRespondersOnTapOut()
+    }
+    
+  
+    
+    func prepareMenuController() {
         let menuController = UIMenuController.sharedMenuController()
         //menuController.menuVisible = true
-        //menuController.arrowDirection = UIMenuControllerArrowDirection.Down
         //menuController.setTargetRect(CGRectZero, inView: self.view)
         
         let menuItem1 = UIMenuItem(title: "223135", action: #selector(LessonViewController.onMenu1(_:)))
         let menuItem2 = UIMenuItem(title: "24.0", action: #selector(LessonViewController.onMenu2(_:)))
+        
         menuController.menuItems = [menuItem1, menuItem2]
     }
     
@@ -105,11 +113,13 @@ class LessonViewController: UIViewController, UITextFieldDelegate, UITextViewDel
         activeTextField?.text = "223135"
         resizeTextField(activeTextField!)
         drawExclusionPaths()
+        activeTextField?.resignFirstResponder()
     }
     func onMenu2(sender: UIMenuItem) {
         activeTextField?.text = "24.0"
         resizeTextField(activeTextField!)
         drawExclusionPaths()
+        activeTextField?.resignFirstResponder()
     }
     
     // MARK: Tap Box
@@ -135,12 +145,6 @@ class LessonViewController: UIViewController, UITextFieldDelegate, UITextViewDel
         textView.addSubview(textField)
         textField.delegate = self
         textField.placeholder = "Tap me!"
-        // TODO: expand/shrink text after tapBox to adjust to right of growing/shrinking tapBox
-        // MARK: Add tap gesture recognizer
-        let aSelector: Selector = #selector(LessonViewController.didRecognizeTap)
-        let tapGesture = UITapGestureRecognizer(target: self, action: aSelector)
-        textView.superview?.addGestureRecognizer(tapGesture)
-
     }
     
     // MARK: Text Box
@@ -215,8 +219,19 @@ class LessonViewController: UIViewController, UITextFieldDelegate, UITextViewDel
     
     // MARK: Set active textfield when tapped
     func textFieldShouldBeginEditing(textField: UITextField) -> Bool {
-        activeTextField = textField
         return true
+    }
+    
+    func textFieldDidBeginEditing(textField: UITextField) {
+        activeTextField = textField
+        didRecognizeTap()
+        dispatch_async(dispatch_get_main_queue()) {
+            let menuController = UIMenuController.sharedMenuController()
+            let frame = CGRect(x: 0, y: 0, width: textField.frame.width, height: 1)
+            menuController.setTargetRect(frame, inView: textField)
+            menuController.arrowDirection = UIMenuControllerArrowDirection.Down
+            menuController.setMenuVisible(true, animated: true)
+        }
     }
     
     // MARK: Create Textview: Main 'Text Editor'

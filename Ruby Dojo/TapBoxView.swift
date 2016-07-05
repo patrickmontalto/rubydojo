@@ -33,7 +33,6 @@ class TapBoxView: UITextField {
         if actions.contains(action) {
             return false
         }
-        print(action)
         return super.canPerformAction(action, withSender: sender)
     }
     

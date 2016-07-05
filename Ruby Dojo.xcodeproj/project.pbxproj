@@ -12,12 +12,13 @@
 		3AF59EFC1D063A01004A2778 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3AF59EFA1D063A01004A2778 /* Main.storyboard */; };
 		3AF59EFE1D063A01004A2778 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3AF59EFD1D063A01004A2778 /* Assets.xcassets */; };
 		3AF59F011D063A01004A2778 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3AF59EFF1D063A01004A2778 /* LaunchScreen.storyboard */; };
-		CD4690A91D0A436200FAEF30 /* StringConvenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD4690A81D0A436200FAEF30 /* StringConvenience.swift */; };
+		CD4690A91D0A436200FAEF30 /* StringExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD4690A81D0A436200FAEF30 /* StringExtensions.swift */; };
 		CD8A784E1D10CB2400850BC2 /* TextBoxView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD8A784D1D10CB2400850BC2 /* TextBoxView.swift */; };
 		CD8A78501D10DAD000850BC2 /* TapBoxView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD8A784F1D10DAD000850BC2 /* TapBoxView.swift */; };
-		CD8A78521D10DCBE00850BC2 /* TextFieldConvenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD8A78511D10DCBE00850BC2 /* TextFieldConvenience.swift */; };
+		CD8A78521D10DCBE00850BC2 /* TextFieldExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD8A78511D10DCBE00850BC2 /* TextFieldExtensions.swift */; };
 		CDEF2BC61D1F768900B7A6DB /* Themes.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDEF2BC51D1F768900B7A6DB /* Themes.swift */; };
 		CDEF2BCA1D20CA4000B7A6DB /* SyntaxHighlightingStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDEF2BC91D20CA4000B7A6DB /* SyntaxHighlightingStorage.swift */; };
+		CDFE2E701D2BFD3E00F931E7 /* UIViewControllerExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDFE2E6F1D2BFD3E00F931E7 /* UIViewControllerExtensions.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,12 +29,13 @@
 		3AF59EFD1D063A01004A2778 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		3AF59F001D063A01004A2778 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		3AF59F021D063A01004A2778 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		CD4690A81D0A436200FAEF30 /* StringConvenience.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StringConvenience.swift; sourceTree = "<group>"; };
+		CD4690A81D0A436200FAEF30 /* StringExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StringExtensions.swift; sourceTree = "<group>"; };
 		CD8A784D1D10CB2400850BC2 /* TextBoxView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextBoxView.swift; sourceTree = "<group>"; };
 		CD8A784F1D10DAD000850BC2 /* TapBoxView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TapBoxView.swift; sourceTree = "<group>"; };
-		CD8A78511D10DCBE00850BC2 /* TextFieldConvenience.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextFieldConvenience.swift; sourceTree = "<group>"; };
+		CD8A78511D10DCBE00850BC2 /* TextFieldExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextFieldExtensions.swift; sourceTree = "<group>"; };
 		CDEF2BC51D1F768900B7A6DB /* Themes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Themes.swift; sourceTree = "<group>"; };
 		CDEF2BC91D20CA4000B7A6DB /* SyntaxHighlightingStorage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SyntaxHighlightingStorage.swift; sourceTree = "<group>"; };
+		CDFE2E6F1D2BFD3E00F931E7 /* UIViewControllerExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UIViewControllerExtensions.swift; path = ../UIViewControllerExtensions.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -73,9 +75,10 @@
 				3AF59EFD1D063A01004A2778 /* Assets.xcassets */,
 				3AF59EFF1D063A01004A2778 /* LaunchScreen.storyboard */,
 				3AF59F021D063A01004A2778 /* Info.plist */,
-				CD4690A81D0A436200FAEF30 /* StringConvenience.swift */,
-				CD8A78511D10DCBE00850BC2 /* TextFieldConvenience.swift */,
+				CD4690A81D0A436200FAEF30 /* StringExtensions.swift */,
+				CD8A78511D10DCBE00850BC2 /* TextFieldExtensions.swift */,
 				CDEF2BC51D1F768900B7A6DB /* Themes.swift */,
+				CDFE2E6F1D2BFD3E00F931E7 /* UIViewControllerExtensions.swift */,
 			);
 			path = "Ruby Dojo";
 			sourceTree = "<group>";
@@ -163,12 +166,13 @@
 			files = (
 				CDEF2BC61D1F768900B7A6DB /* Themes.swift in Sources */,
 				3AF59EF91D063A01004A2778 /* LessonViewController.swift in Sources */,
-				CD8A78521D10DCBE00850BC2 /* TextFieldConvenience.swift in Sources */,
+				CD8A78521D10DCBE00850BC2 /* TextFieldExtensions.swift in Sources */,
 				CD8A784E1D10CB2400850BC2 /* TextBoxView.swift in Sources */,
+				CDFE2E701D2BFD3E00F931E7 /* UIViewControllerExtensions.swift in Sources */,
 				CDEF2BCA1D20CA4000B7A6DB /* SyntaxHighlightingStorage.swift in Sources */,
 				CD8A78501D10DAD000850BC2 /* TapBoxView.swift in Sources */,
 				3AF59EF71D063A01004A2778 /* AppDelegate.swift in Sources */,
-				CD4690A91D0A436200FAEF30 /* StringConvenience.swift in Sources */,
+				CD4690A91D0A436200FAEF30 /* StringExtensions.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

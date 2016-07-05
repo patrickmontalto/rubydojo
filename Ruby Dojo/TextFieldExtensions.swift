@@ -1,5 +1,5 @@
 //
-//  TextFieldConvenience.swift
+//  TextFieldExtensions.swift
 //  Ruby Dojo
 //
 //  Created by Patrick Montalto on 6/14/16.
