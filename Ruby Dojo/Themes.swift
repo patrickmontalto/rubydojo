@@ -9,6 +9,7 @@
 import UIKit
 
 struct Solarized {
+    static let Font = UIFont(name: "Menlo", size: 13.0)!
     static let BackgroundColor = UIColor(red: 253/255.0, green: 247/255.0, blue: 229/255.0, alpha: 1.0)
     static let RedColor = UIColor(red: 219/255.0, green: 53/255.0, blue: 54/255.0, alpha: 1.0)
     static let YellowColor = UIColor(red: 181/255.0, green: 136/255.0, blue: 29/255.0, alpha: 1.0)

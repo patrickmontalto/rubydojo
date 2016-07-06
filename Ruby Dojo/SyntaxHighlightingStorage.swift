@@ -50,8 +50,9 @@ class SyntaxHighlightingTextStorage: NSTextStorage {
         edited(.EditedAttributes, range: range, changeInLength: 0)
         endEditing()
     }
+    
     func applyStylesToRange(searchRange: NSRange) {
-        let normalAttrs = [NSForegroundColorAttributeName : UIColor.blackColor(), NSFontAttributeName : UIFont(name: "Menlo", size: 13.0)!]
+        let normalAttrs = [NSForegroundColorAttributeName : Solarized.Base01, NSFontAttributeName : UIFont(name: "Menlo", size: 13.0)!]
         var regex = NSRegularExpression()
         // iterate over each replacement
         for (pattern, attributes) in replacements {
@@ -62,7 +63,7 @@ class SyntaxHighlightingTextStorage: NSTextStorage {
                 match, flags, stop in
                 // apply the style
                 let matchRange = match!.rangeAtIndex(1)
-                print(matchRange)
+                print("\(self.backingStore.mutableString.substringWithRange(matchRange)):\(pattern)")
                 self.addAttributes(attributes as! [String:AnyObject], range: matchRange)
                 
                 // reset the style to the original
@@ -99,17 +100,22 @@ class SyntaxHighlightingTextStorage: NSTextStorage {
         let italicAttributes = createAttributesForFontStyle(UIFontTextStyleBody, withTrait:.TraitItalic)
         let strikeThroughAttributes = [NSStrikethroughStyleAttributeName : 1]
         let blueTextAttributes = [NSForegroundColorAttributeName : Solarized.BlueColor]
-        let grayTextAttributes: [String:AnyObject] = [
-            NSForegroundColorAttributeName: UIColor.grayColor(),
-            NSFontAttributeName: UIFont(name: "Menlo", size: 10.0)!]
-//        let smallTextAttributes = [NSFontAttributeName: UIFont(name: "Menlo", size: 12.0)]
-        // construct a dictionary of replacements based on regexes
+        let grayTextAttributes = [NSForegroundColorAttributeName: Solarized.Base01]
+        let greenTextAttributes = [NSForegroundColorAttributeName: Solarized.GreenColor]
+        let cyanTextAttributes = [NSForegroundColorAttributeName: Solarized.CyanColor]
+        let redTextAttributes = [NSForegroundColorAttributeName: Solarized.RedColor]
+        // Construct a dictionary of replacements based on regexes
         replacements = [
             "(\\*\\w+(\\s\\w+)*\\*)" : boldAttributes,
             "(_\\w+(\\s\\w+)*_)" : italicAttributes,
-            "([0-9]+\\|)" : grayTextAttributes,
+            "(\")" : redTextAttributes,
             "(-\\w+(\\s\\w+)*-)" : strikeThroughAttributes,
-            "(@name|@theOtherName)\\s" : blueTextAttributes
+            "(\\@\\w+)" : blueTextAttributes,
+            "(=|\\+|\\-)" : grayTextAttributes,
+            "(\\d+(\\.\\d+)?)": cyanTextAttributes,
+            "(def|end)": greenTextAttributes
+
+
         ]
     }
     

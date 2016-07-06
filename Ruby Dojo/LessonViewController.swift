@@ -28,10 +28,7 @@ class LessonViewController: UIViewController, UITextFieldDelegate, UITextViewDel
         instructionsTextView.layer.borderWidth = 1.0
         
         createTextView()
-        let attrs = [NSFontAttributeName : UIFont(name: "Menlo", size: 13.0)!]
-        let attrString = NSAttributedString(string: "\n ", attributes: attrs)
-        textView.textStorage.appendAttributedString(attrString)
-        textView.font = UIFont(name: "Menlo", size: 13.0)
+        textView.font = Solarized.Font
         textView.layer.borderColor = UIColor.redColor().CGColor
         textView.layer.borderWidth = 1.0
         textView.layoutManager.delegate = self
@@ -92,7 +89,8 @@ class LessonViewController: UIViewController, UITextFieldDelegate, UITextViewDel
                 
                 // TODO: Make exclusion paths smaller to fix text closer to it.
                 // TODO: Make a calculated value to subtract instead of magic numbers?
-                let condensedFrame = CGRect(x: convertedFrame.origin.x + 10.0 , y: convertedFrame.origin.y, width: convertedFrame.width - 13.0 , height: convertedFrame.height - 13.0)
+                let widthRightOffset: CGFloat = subView.dynamicType == Ruby_Dojo.TapBoxView ? 8 : 14
+                let condensedFrame = CGRect(x: convertedFrame.origin.x + 10, y: convertedFrame.origin.y, width: convertedFrame.width - widthRightOffset , height: convertedFrame.height - 13.0)
                 let path = UIBezierPath(rect: condensedFrame)
                 exclusionPaths.append(path)
             }
@@ -138,7 +136,7 @@ class LessonViewController: UIViewController, UITextFieldDelegate, UITextViewDel
         
         let width: CGFloat = 60
         
-        let finalFrame = CGRect(x: textView.frame.origin.x + resultFrame.origin.x, y: textView.frame.origin.y + resultFrame.origin.y, width: width, height: 17.5)
+        let finalFrame = CGRect(x: textView.frame.origin.x + resultFrame.origin.x + 8, y: textView.frame.origin.y + resultFrame.origin.y, width: width, height: 17.5)
 
         let textField = TapBoxView(frame: finalFrame)
         textField.addLeftPadding(2.0)
@@ -176,7 +174,7 @@ class LessonViewController: UIViewController, UITextFieldDelegate, UITextViewDel
         }
         let width = textView.frame.width - resultFrame.origin.x + rightOffset
         
-        let finalFrame = CGRect(x: resultFrame.origin.x, y: resultFrame.origin.y + 1.5, width: width, height: 17.5)
+        let finalFrame = CGRect(x: resultFrame.origin.x + 8, y: resultFrame.origin.y + 1.5, width: width, height: 17.5)
         
         let textField = TextBoxView(frame: finalFrame)
         textField.addLeftPadding(4.0)
@@ -224,7 +222,6 @@ class LessonViewController: UIViewController, UITextFieldDelegate, UITextViewDel
     
     func textFieldDidBeginEditing(textField: UITextField) {
         activeTextField = textField
-        didRecognizeTap()
         dispatch_async(dispatch_get_main_queue()) {
             let menuController = UIMenuController.sharedMenuController()
             let frame = CGRect(x: 0, y: 0, width: textField.frame.width, height: 1)
@@ -238,19 +235,21 @@ class LessonViewController: UIViewController, UITextFieldDelegate, UITextViewDel
     func createTextView() {
         // 1. Create the text storage that backs the editor
         // let attrs = [NSFontAttributeName : UIFont.preferredFontForTextStyle(UIFontTextStyleBody)]
-        let attrs = [NSFontAttributeName : UIFont(name: "Menlo", size: 13.0)!]
-        let attrString = NSAttributedString(string: "1|@name = \"TEXTBOX \"\n2|@theOtherName = \"TEXTBOX \"\n3|@myValue = TAPBOX + 22.0", attributes: attrs)
+        let attrs = [NSFontAttributeName : Solarized.Font]
+        let attrString = NSAttributedString(string: "@name = \"TEXTBOX \"\n@theOtherName = \"TEXTBOX \"\n@myValue = TAPBOX + 22.0", attributes: attrs)
         textStorage = SyntaxHighlightingTextStorage()
         textStorage.appendAttributedString(attrString)
         
         let newTextViewRect = view.bounds
         
         // 2. Create the layout manager
-        let layoutManager = NSLayoutManager()
+//        let layoutManager = NSLayoutManager()
+        let layoutManager = SyntaxLayoutManager()
         
         // 3. Create a text container
         let containerSize = CGSize(width: newTextViewRect.width, height: CGFloat.max)
-        let container = NSTextContainer(size: containerSize)
+//        let container = NSTextContainer(size: containerSize)
+        let container = SyntaxTextContainer(size: containerSize)
         container.widthTracksTextView = true
         
         layoutManager.addTextContainer(container)

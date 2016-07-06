@@ -19,6 +19,9 @@
 		CDEF2BC61D1F768900B7A6DB /* Themes.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDEF2BC51D1F768900B7A6DB /* Themes.swift */; };
 		CDEF2BCA1D20CA4000B7A6DB /* SyntaxHighlightingStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDEF2BC91D20CA4000B7A6DB /* SyntaxHighlightingStorage.swift */; };
 		CDFE2E701D2BFD3E00F931E7 /* UIViewControllerExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDFE2E6F1D2BFD3E00F931E7 /* UIViewControllerExtensions.swift */; };
+		CDFE2E721D2C464400F931E7 /* SyntaxTextContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDFE2E711D2C464400F931E7 /* SyntaxTextContainer.swift */; };
+		CDFE2E741D2C799700F931E7 /* SyntaxLayoutManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDFE2E731D2C799700F931E7 /* SyntaxLayoutManager.swift */; };
+		CDFE2E781D2CD02A00F931E7 /* DataTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDFE2E771D2CD02A00F931E7 /* DataTypes.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -36,6 +39,9 @@
 		CDEF2BC51D1F768900B7A6DB /* Themes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Themes.swift; sourceTree = "<group>"; };
 		CDEF2BC91D20CA4000B7A6DB /* SyntaxHighlightingStorage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SyntaxHighlightingStorage.swift; sourceTree = "<group>"; };
 		CDFE2E6F1D2BFD3E00F931E7 /* UIViewControllerExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UIViewControllerExtensions.swift; path = ../UIViewControllerExtensions.swift; sourceTree = "<group>"; };
+		CDFE2E711D2C464400F931E7 /* SyntaxTextContainer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SyntaxTextContainer.swift; sourceTree = "<group>"; };
+		CDFE2E731D2C799700F931E7 /* SyntaxLayoutManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SyntaxLayoutManager.swift; sourceTree = "<group>"; };
+		CDFE2E771D2CD02A00F931E7 /* DataTypes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataTypes.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -79,6 +85,7 @@
 				CD8A78511D10DCBE00850BC2 /* TextFieldExtensions.swift */,
 				CDEF2BC51D1F768900B7A6DB /* Themes.swift */,
 				CDFE2E6F1D2BFD3E00F931E7 /* UIViewControllerExtensions.swift */,
+				CDFE2E771D2CD02A00F931E7 /* DataTypes.swift */,
 			);
 			path = "Ruby Dojo";
 			sourceTree = "<group>";
@@ -88,7 +95,9 @@
 			children = (
 				CD8A784D1D10CB2400850BC2 /* TextBoxView.swift */,
 				CD8A784F1D10DAD000850BC2 /* TapBoxView.swift */,
+				CDFE2E711D2C464400F931E7 /* SyntaxTextContainer.swift */,
 				CDEF2BC91D20CA4000B7A6DB /* SyntaxHighlightingStorage.swift */,
+				CDFE2E731D2C799700F931E7 /* SyntaxLayoutManager.swift */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -164,6 +173,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CDFE2E741D2C799700F931E7 /* SyntaxLayoutManager.swift in Sources */,
 				CDEF2BC61D1F768900B7A6DB /* Themes.swift in Sources */,
 				3AF59EF91D063A01004A2778 /* LessonViewController.swift in Sources */,
 				CD8A78521D10DCBE00850BC2 /* TextFieldExtensions.swift in Sources */,
@@ -172,7 +182,9 @@
 				CDEF2BCA1D20CA4000B7A6DB /* SyntaxHighlightingStorage.swift in Sources */,
 				CD8A78501D10DAD000850BC2 /* TapBoxView.swift in Sources */,
 				3AF59EF71D063A01004A2778 /* AppDelegate.swift in Sources */,
+				CDFE2E781D2CD02A00F931E7 /* DataTypes.swift in Sources */,
 				CD4690A91D0A436200FAEF30 /* StringExtensions.swift in Sources */,
+				CDFE2E721D2C464400F931E7 /* SyntaxTextContainer.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
