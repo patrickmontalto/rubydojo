@@ -29,14 +29,12 @@ class SyntaxLayoutManager: NSLayoutManager {
             let lineRange = characterRangeForGlyphRange(glyphLineRange, actualGlyphRange: nil)
             let paragraphRange = (textStorage!.string as NSString).paragraphRangeForRange(lineRange)
             
-            // TODO: Drawing
             // Draw paragraph number if we're at the start of the paragraph
             if lineRange.location == paragraphRange.location {
                 drawParagraphNumber(paragraphNumber, lineFragmentRect: lineRect, atPoint: origin)
                 // Advance paragraph number for next time we're at start of paragraph
                 paragraphNumber += 1
             }
-            // TODO: Don't draw last paragraph number?
             
             // Advance Index
             glyphIndex = NSMaxRange(glyphLineRange)

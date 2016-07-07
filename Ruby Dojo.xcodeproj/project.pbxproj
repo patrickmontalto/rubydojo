@@ -22,6 +22,7 @@
 		CDFE2E721D2C464400F931E7 /* SyntaxTextContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDFE2E711D2C464400F931E7 /* SyntaxTextContainer.swift */; };
 		CDFE2E741D2C799700F931E7 /* SyntaxLayoutManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDFE2E731D2C799700F931E7 /* SyntaxLayoutManager.swift */; };
 		CDFE2E781D2CD02A00F931E7 /* DataTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDFE2E771D2CD02A00F931E7 /* DataTypes.swift */; };
+		CDFE2E7A1D2D95C000F931E7 /* DataTypeValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDFE2E791D2D95C000F931E7 /* DataTypeValidator.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -42,6 +43,7 @@
 		CDFE2E711D2C464400F931E7 /* SyntaxTextContainer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SyntaxTextContainer.swift; sourceTree = "<group>"; };
 		CDFE2E731D2C799700F931E7 /* SyntaxLayoutManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SyntaxLayoutManager.swift; sourceTree = "<group>"; };
 		CDFE2E771D2CD02A00F931E7 /* DataTypes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataTypes.swift; sourceTree = "<group>"; };
+		CDFE2E791D2D95C000F931E7 /* DataTypeValidator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataTypeValidator.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -86,6 +88,7 @@
 				CDEF2BC51D1F768900B7A6DB /* Themes.swift */,
 				CDFE2E6F1D2BFD3E00F931E7 /* UIViewControllerExtensions.swift */,
 				CDFE2E771D2CD02A00F931E7 /* DataTypes.swift */,
+				CDFE2E791D2D95C000F931E7 /* DataTypeValidator.swift */,
 			);
 			path = "Ruby Dojo";
 			sourceTree = "<group>";
@@ -182,6 +185,7 @@
 				CDEF2BCA1D20CA4000B7A6DB /* SyntaxHighlightingStorage.swift in Sources */,
 				CD8A78501D10DAD000850BC2 /* TapBoxView.swift in Sources */,
 				3AF59EF71D063A01004A2778 /* AppDelegate.swift in Sources */,
+				CDFE2E7A1D2D95C000F931E7 /* DataTypeValidator.swift in Sources */,
 				CDFE2E781D2CD02A00F931E7 /* DataTypes.swift in Sources */,
 				CD4690A91D0A436200FAEF30 /* StringExtensions.swift in Sources */,
 				CDFE2E721D2C464400F931E7 /* SyntaxTextContainer.swift in Sources */,

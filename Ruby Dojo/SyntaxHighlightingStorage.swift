@@ -35,9 +35,7 @@ class SyntaxHighlightingTextStorage: NSTextStorage {
     
     // Mandatory Overrides
     
-    override func replaceCharactersInRange(range: NSRange, withString str: String) {
-        print("replaceCharactersInRange:\(range) withString:\(str)")
-        
+    override func replaceCharactersInRange(range: NSRange, withString str: String) {        
         beginEditing()
         backingStore.replaceCharactersInRange(range, withString:str)
         edited([.EditedCharacters,.EditedAttributes], range: range, changeInLength: (str as NSString).length - range.length)
@@ -52,24 +50,31 @@ class SyntaxHighlightingTextStorage: NSTextStorage {
     }
     
     func applyStylesToRange(searchRange: NSRange) {
-        let normalAttrs = [NSForegroundColorAttributeName : Solarized.Base01, NSFontAttributeName : UIFont(name: "Menlo", size: 13.0)!]
+        let normalAttrs = [NSForegroundColorAttributeName : Solarized.Base01, NSFontAttributeName : Solarized.Font]
         var regex = NSRegularExpression()
         // iterate over each replacement
-        for (pattern, attributes) in replacements {
-            do {
-                regex = try NSRegularExpression(pattern: pattern, options: [])
-            } catch {}
-            regex.enumerateMatchesInString(backingStore.string, options: [], range: searchRange) {
-                match, flags, stop in
-                // apply the style
-                let matchRange = match!.rangeAtIndex(1)
-                print("\(self.backingStore.mutableString.substringWithRange(matchRange)):\(pattern)")
-                self.addAttributes(attributes as! [String:AnyObject], range: matchRange)
+        for replacement in replacements {
+            for (pattern, attributes) in replacement {
+                do {
+                    regex = try NSRegularExpression(pattern: pattern, options: [])
+                } catch {}
+                regex.enumerateMatchesInString(backingStore.string, options: [], range: searchRange) {
+                    match, flags, stop in
+                    // apply the style
+                    let matchRange = match!.rangeAtIndex(0)
+                    // MARK: DEBUGGING
+//                    
+//                    
+//                    print("Found Match: \(self.backingStore.mutableString.substringWithRange(matchRange)):\(DataTypes(rawValue:     pattern))")
+//
+//                    
+                    self.addAttributes(attributes as! [String:AnyObject], range: matchRange)
                 
-                // reset the style to the original
-                let maxRange = matchRange.location + matchRange.length
-                if maxRange + 1 < self.length {
-                    self.addAttributes(normalAttrs, range: NSMakeRange(maxRange, 1))
+                    // reset the style to the original
+                    let maxRange = matchRange.location + matchRange.length
+                    if maxRange + 1 < self.length {
+                        self.addAttributes(normalAttrs, range: NSMakeRange(maxRange, 1))
+                    }
                 }
             }
         }
@@ -93,27 +98,33 @@ class SyntaxHighlightingTextStorage: NSTextStorage {
         let font = UIFont(descriptor: descriptorWithTrait, size: 0)
         return [NSFontAttributeName : font]
     }
-    var replacements: [String : [NSObject : AnyObject]]!
+    var replacements: [[String : [NSObject : AnyObject]]]!
     
     func createHighlightPatterns() {
-        let boldAttributes = createAttributesForFontStyle(UIFontTextStyleBody, withTrait:.TraitBold)
-        let italicAttributes = createAttributesForFontStyle(UIFontTextStyleBody, withTrait:.TraitItalic)
-        let strikeThroughAttributes = [NSStrikethroughStyleAttributeName : 1]
-        let blueTextAttributes = [NSForegroundColorAttributeName : Solarized.BlueColor]
-        let grayTextAttributes = [NSForegroundColorAttributeName: Solarized.Base01]
-        let greenTextAttributes = [NSForegroundColorAttributeName: Solarized.GreenColor]
-        let cyanTextAttributes = [NSForegroundColorAttributeName: Solarized.CyanColor]
+//        let boldAttributes = createAttributesForFontStyle(UIFontTextStyleBody, withTrait:.TraitBold)
+//        let italicAttributes = createAttributesForFontStyle(UIFontTextStyleBody, withTrait:.TraitItalic)
+//        let strikeThroughAttributes = [NSStrikethroughStyleAttributeName : 1]
         let redTextAttributes = [NSForegroundColorAttributeName: Solarized.RedColor]
+        let plainTextAttributes = [NSForegroundColorAttributeName: Solarized.Base02]
         // Construct a dictionary of replacements based on regexes
         replacements = [
-            "(\\*\\w+(\\s\\w+)*\\*)" : boldAttributes,
-            "(_\\w+(\\s\\w+)*_)" : italicAttributes,
-            "(\")" : redTextAttributes,
-            "(-\\w+(\\s\\w+)*-)" : strikeThroughAttributes,
-            "(\\@\\w+)" : blueTextAttributes,
-            "(=|\\+|\\-)" : grayTextAttributes,
-            "(\\d+(\\.\\d+)?)": cyanTextAttributes,
-            "(def|end)": greenTextAttributes
+//            "(\\*\\w+(\\s\\w+)*\\*)" : boldAttributes,
+//            "(_\\w+(\\s\\w+)*_)" : italicAttributes,
+//            "(-\\w+(\\s\\w+)*-)" : strikeThroughAttributes,
+            [DataTypes.Variable.rawValue : DataTypes.Variable.syntaxColorAttributes],
+            [DataTypes.Constant.rawValue : DataTypes.Constant.syntaxColorAttributes],
+//            DataTypes.ClassVariable.rawValue : DataTypes.ClassVariable.syntaxColorAttributes,
+//            DataTypes.GlobalVariable.rawValue : DataTypes.GlobalVariable.syntaxColorAttributes,
+            [DataTypes.InstanceVariable.rawValue : DataTypes.InstanceVariable.syntaxColorAttributes],
+            [DataTypes.Int.rawValue : DataTypes.Int.syntaxColorAttributes],
+            [DataTypes.Keyword.rawValue : DataTypes.Keyword.syntaxColorAttributes],
+//            DataTypes.String.rawValue : DataTypes.String.syntaxColorAttributes,
+//            DataTypes.Symbol.rawValue : DataTypes.Symbol.syntaxColorAttributes,
+            [DataTypes.Boolean.rawValue : DataTypes.Boolean.syntaxColorAttributes],
+            ["\"": redTextAttributes],
+            ["(\\+|\\=|\\-)" : plainTextAttributes]
+
+            
 
 
         ]

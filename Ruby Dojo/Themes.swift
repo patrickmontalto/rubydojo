@@ -20,4 +20,5 @@ struct Solarized {
     static let CyanColor = UIColor(red: 50/255.0, green: 161/255.0, blue: 152/255.0, alpha: 1.0)
     static let GreenColor = UIColor(red: 134/255.0, green: 152/255.0, blue: 28/255.0, alpha: 1.0)
     static let Base01 = UIColor(red: 148/255.0, green: 162/255.0, blue: 162/255.0, alpha: 1.0)
+    static let Base02 = UIColor(red: 88/255.0, green: 110/255.0, blue: 117/255.0, alpha: 1.0)
 }

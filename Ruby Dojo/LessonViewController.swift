@@ -69,8 +69,9 @@ class LessonViewController: UIViewController, UITextFieldDelegate, UITextViewDel
         
         let menuItem1 = UIMenuItem(title: "223135", action: #selector(LessonViewController.onMenu1(_:)))
         let menuItem2 = UIMenuItem(title: "24.0", action: #selector(LessonViewController.onMenu2(_:)))
+        let menuItem3 = UIMenuItem(title: "Name", action: #selector(LessonViewController.onMenu3(_:)))
         
-        menuController.menuItems = [menuItem1, menuItem2]
+        menuController.menuItems = [menuItem1, menuItem2, menuItem3]
     }
     
     // MARK: Exclusion Paths
@@ -108,16 +109,23 @@ class LessonViewController: UIViewController, UITextFieldDelegate, UITextViewDel
     // MARK: Menu Actions
     func onMenu1(sender: UIMenuItem) {
         // TODO: Need to update the tapped textbox's text value here...
-        activeTextField?.text = "223135"
+        activeTextField?.text = sender.title
         resizeTextField(activeTextField!)
         drawExclusionPaths()
         activeTextField?.resignFirstResponder()
     }
     func onMenu2(sender: UIMenuItem) {
-        activeTextField?.text = "24.0"
+        activeTextField?.text = sender.title
         resizeTextField(activeTextField!)
         drawExclusionPaths()
         activeTextField?.resignFirstResponder()
+    }
+    func onMenu3(sender: UIMenuItem) {
+        activeTextField?.text = sender.title
+        resizeTextField(activeTextField!)
+        drawExclusionPaths()
+        activeTextField?.resignFirstResponder()
+        
     }
     
     // MARK: Tap Box
@@ -136,7 +144,7 @@ class LessonViewController: UIViewController, UITextFieldDelegate, UITextViewDel
         
         let width: CGFloat = 60
         
-        let finalFrame = CGRect(x: textView.frame.origin.x + resultFrame.origin.x + 8, y: textView.frame.origin.y + resultFrame.origin.y, width: width, height: 17.5)
+        let finalFrame = CGRect(x: textView.frame.origin.x + resultFrame.origin.x, y: textView.frame.origin.y + resultFrame.origin.y, width: width, height: 17.5)
 
         let textField = TapBoxView(frame: finalFrame)
         textField.addLeftPadding(2.0)
@@ -158,27 +166,19 @@ class LessonViewController: UIViewController, UITextFieldDelegate, UITextViewDel
         let range: UITextRange = textView.textRangeFromPosition(pos1, toPosition: pos2)!
         
         let resultFrame: CGRect = textView.firstRectForRange(range)
-        let screenWidth = UIScreen.mainScreen().bounds.width
-        var rightOffset = CGFloat()
+        let rightOffset: CGFloat = -32
         
-        // TODO: Textbox fills screen fine on 6+, not on 6 or 5s
-        switch (screenWidth) {
-        case 320.0:
-            rightOffset = -100
-        case 375.0:
-            rightOffset = -46
-        case 414:
-            rightOffset = -16
-        default:
-            rightOffset = 0
-        }
+       
         let width = textView.frame.width - resultFrame.origin.x + rightOffset
         
-        let finalFrame = CGRect(x: resultFrame.origin.x + 8, y: resultFrame.origin.y + 1.5, width: width, height: 17.5)
+        let finalFrame = CGRect(x: resultFrame.origin.x, y: resultFrame.origin.y + 1.5, width: width, height: 17.5)
         
         let textField = TextBoxView(frame: finalFrame)
         textField.addLeftPadding(4.0)
         textView.addSubview(textField)
+        
+        // Set Delegate
+        textField.delegate = self
     }
     
     func countRows() -> CGFloat {
@@ -207,7 +207,7 @@ class LessonViewController: UIViewController, UITextFieldDelegate, UITextViewDel
     }
     
     func textField(textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool {
-        return false
+        return textField.dynamicType == Ruby_Dojo.TextBoxView
     }
     
     // MARK: Line Height
@@ -217,26 +217,34 @@ class LessonViewController: UIViewController, UITextFieldDelegate, UITextViewDel
     
     // MARK: Set active textfield when tapped
     func textFieldShouldBeginEditing(textField: UITextField) -> Bool {
+        if textField.dynamicType == Ruby_Dojo.TapBoxView {
+            activeTextField = textField
+            
+            dispatch_async(dispatch_get_main_queue()) {
+                textField.resignFirstResponder()
+                let menuController = UIMenuController.sharedMenuController()
+                let frame = CGRect(x: 0, y: 0, width: textField.frame.width, height: 1)
+                menuController.setTargetRect(frame, inView: textField)
+                menuController.arrowDirection = UIMenuControllerArrowDirection.Down
+                menuController.setMenuVisible(true, animated: true)
+            }
+        }
         return true
     }
     
-    func textFieldDidBeginEditing(textField: UITextField) {
-        activeTextField = textField
-        dispatch_async(dispatch_get_main_queue()) {
-            let menuController = UIMenuController.sharedMenuController()
-            let frame = CGRect(x: 0, y: 0, width: textField.frame.width, height: 1)
-            menuController.setTargetRect(frame, inView: textField)
-            menuController.arrowDirection = UIMenuControllerArrowDirection.Down
-            menuController.setMenuVisible(true, animated: true)
-        }
+    func textFieldShouldReturn(textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
     }
+    
+    
     
     // MARK: Create Textview: Main 'Text Editor'
     func createTextView() {
         // 1. Create the text storage that backs the editor
         // let attrs = [NSFontAttributeName : UIFont.preferredFontForTextStyle(UIFontTextStyleBody)]
-        let attrs = [NSFontAttributeName : Solarized.Font]
-        let attrString = NSAttributedString(string: "@name = \"TEXTBOX \"\n@theOtherName = \"TEXTBOX \"\n@myValue = TAPBOX + 22.0", attributes: attrs)
+        let attrs = [NSFontAttributeName : Solarized.Font, NSForegroundColorAttributeName: Solarized.Base02]
+        let attrString = NSAttributedString(string: "@name = \"TEXTBOX \"\n@theOtherName = \"TEXTBOX \"\n@myValue = TAPBOX + 22.0\nputs @name \nclass Test \nmy_value = true", attributes: attrs)
         textStorage = SyntaxHighlightingTextStorage()
         textStorage.appendAttributedString(attrString)
         

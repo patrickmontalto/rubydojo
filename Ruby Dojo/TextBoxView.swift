@@ -19,7 +19,7 @@ class TextBoxView: UITextField {
         self.backgroundColor = UIColor.whiteColor()
         self.layer.cornerRadius = 4.0
         self.backgroundColor = Solarized.BackgroundColor
-        self.textColor = Solarized.RedColor
+        self.textColor = Solarized.CyanColor
     }
     
     required init?(coder aDecoder: NSCoder) {

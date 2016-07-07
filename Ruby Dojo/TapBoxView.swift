@@ -28,6 +28,7 @@ class TapBoxView: UITextField {
         fatalError("init(coder:) has not been implemented")
     }
     
+  
     override func canPerformAction(action: Selector, withSender sender: AnyObject?) -> Bool {
         let actions: [Selector] = ["paste:", "select:", "selectAll:", "cut:", "copy:", "_define:", "_share:", "_promptForReplace:"]
         if actions.contains(action) {
