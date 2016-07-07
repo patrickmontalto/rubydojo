@@ -117,7 +117,6 @@ class LessonViewController: UIViewController, UITextFieldDelegate, UITextViewDel
             let condensedFrame = CGRect(x: convertedFrame.origin.x + 10, y: convertedFrame.origin.y, width: convertedFrame.width - widthRightOffset , height: convertedFrame.height - 13.0)
             let path = UIBezierPath(rect: condensedFrame)
             exclusionPaths.append(path)
-            
         }
         
         // Set exclusion paths
