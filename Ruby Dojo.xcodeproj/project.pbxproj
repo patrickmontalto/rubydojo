@@ -23,6 +23,7 @@
 		CDFE2E741D2C799700F931E7 /* SyntaxLayoutManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDFE2E731D2C799700F931E7 /* SyntaxLayoutManager.swift */; };
 		CDFE2E781D2CD02A00F931E7 /* DataTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDFE2E771D2CD02A00F931E7 /* DataTypes.swift */; };
 		CDFE2E7A1D2D95C000F931E7 /* DataTypeValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDFE2E791D2D95C000F931E7 /* DataTypeValidator.swift */; };
+		CDFE2E7E1D2E12ED00F931E7 /* SyntaxTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDFE2E7D1D2E12ED00F931E7 /* SyntaxTextView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -44,6 +45,7 @@
 		CDFE2E731D2C799700F931E7 /* SyntaxLayoutManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SyntaxLayoutManager.swift; sourceTree = "<group>"; };
 		CDFE2E771D2CD02A00F931E7 /* DataTypes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataTypes.swift; sourceTree = "<group>"; };
 		CDFE2E791D2D95C000F931E7 /* DataTypeValidator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataTypeValidator.swift; sourceTree = "<group>"; };
+		CDFE2E7D1D2E12ED00F931E7 /* SyntaxTextView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SyntaxTextView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -96,6 +98,7 @@
 		CD8A784C1D10CB0300850BC2 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				CDFE2E7D1D2E12ED00F931E7 /* SyntaxTextView.swift */,
 				CD8A784D1D10CB2400850BC2 /* TextBoxView.swift */,
 				CD8A784F1D10DAD000850BC2 /* TapBoxView.swift */,
 				CDFE2E711D2C464400F931E7 /* SyntaxTextContainer.swift */,
@@ -182,6 +185,7 @@
 				CD8A78521D10DCBE00850BC2 /* TextFieldExtensions.swift in Sources */,
 				CD8A784E1D10CB2400850BC2 /* TextBoxView.swift in Sources */,
 				CDFE2E701D2BFD3E00F931E7 /* UIViewControllerExtensions.swift in Sources */,
+				CDFE2E7E1D2E12ED00F931E7 /* SyntaxTextView.swift in Sources */,
 				CDEF2BCA1D20CA4000B7A6DB /* SyntaxHighlightingStorage.swift in Sources */,
 				CD8A78501D10DAD000850BC2 /* TapBoxView.swift in Sources */,
 				3AF59EF71D063A01004A2778 /* AppDelegate.swift in Sources */,

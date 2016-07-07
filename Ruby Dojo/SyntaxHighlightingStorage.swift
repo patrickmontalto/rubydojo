@@ -101,25 +101,22 @@ class SyntaxHighlightingTextStorage: NSTextStorage {
     var replacements: [[String : [NSObject : AnyObject]]]!
     
     func createHighlightPatterns() {
-//        let boldAttributes = createAttributesForFontStyle(UIFontTextStyleBody, withTrait:.TraitBold)
-//        let italicAttributes = createAttributesForFontStyle(UIFontTextStyleBody, withTrait:.TraitItalic)
-//        let strikeThroughAttributes = [NSStrikethroughStyleAttributeName : 1]
+        let boldAttributes = [NSFontAttributeName : UIFont(name: "Menlo-bold", size: 13.0)!]
         let redTextAttributes = [NSForegroundColorAttributeName: Solarized.RedColor]
         let plainTextAttributes = [NSForegroundColorAttributeName: Solarized.Base02]
+        
         // Construct a dictionary of replacements based on regexes
         replacements = [
-//            "(\\*\\w+(\\s\\w+)*\\*)" : boldAttributes,
-//            "(_\\w+(\\s\\w+)*_)" : italicAttributes,
-//            "(-\\w+(\\s\\w+)*-)" : strikeThroughAttributes,
+            ["(def)" : boldAttributes],
             [DataTypes.Variable.rawValue : DataTypes.Variable.syntaxColorAttributes],
             [DataTypes.Constant.rawValue : DataTypes.Constant.syntaxColorAttributes],
-//            DataTypes.ClassVariable.rawValue : DataTypes.ClassVariable.syntaxColorAttributes,
-//            DataTypes.GlobalVariable.rawValue : DataTypes.GlobalVariable.syntaxColorAttributes,
+            [DataTypes.ClassVariable.rawValue : DataTypes.ClassVariable.syntaxColorAttributes],
+            [DataTypes.GlobalVariable.rawValue : DataTypes.GlobalVariable.syntaxColorAttributes],
             [DataTypes.InstanceVariable.rawValue : DataTypes.InstanceVariable.syntaxColorAttributes],
             [DataTypes.Int.rawValue : DataTypes.Int.syntaxColorAttributes],
             [DataTypes.Keyword.rawValue : DataTypes.Keyword.syntaxColorAttributes],
-//            DataTypes.String.rawValue : DataTypes.String.syntaxColorAttributes,
-//            DataTypes.Symbol.rawValue : DataTypes.Symbol.syntaxColorAttributes,
+            [DataTypes.String.rawValue : DataTypes.String.syntaxColorAttributes],
+            [DataTypes.Symbol.rawValue : DataTypes.Symbol.syntaxColorAttributes],
             [DataTypes.Boolean.rawValue : DataTypes.Boolean.syntaxColorAttributes],
             ["\"": redTextAttributes],
             ["(\\+|\\=|\\-)" : plainTextAttributes]

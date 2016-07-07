@@ -17,8 +17,8 @@ class SyntaxTextContainer: NSTextContainer {
         let screenWidth = UIScreen.mainScreen().bounds.width
 
         if remainingRectSize > 0 || rect.size.width == screenWidth {
-            rect.origin.x += 8
-            rect.size.width -= 8
+            rect.origin.x += 12
+            rect.size.width -= 12
         }
         
         return rect

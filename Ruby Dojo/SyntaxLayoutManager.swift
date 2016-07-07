@@ -44,7 +44,7 @@ class SyntaxLayoutManager: NSLayoutManager {
     // MARK: - Draw Paragraph Numbers
     func drawParagraphNumber(paragraphNumber: Int, lineFragmentRect lineRect:CGRect, atPoint origin: CGPoint) {
         let numberStringAttributes: [String:AnyObject] = [
-            NSForegroundColorAttributeName: UIColor.grayColor(),
+            NSForegroundColorAttributeName: Solarized.Base01,
             NSFontAttributeName: UIFont(name: "Menlo", size: 10.0)!]
         
         let numberString = "\(paragraphNumber)" as NSString
@@ -55,7 +55,7 @@ class SyntaxLayoutManager: NSLayoutManager {
         numberRect.size.width = lineRect.width
         numberRect.origin.x = origin.x + 4
         numberRect.size.height = lineRect.height
-        numberRect.origin.y = CGRectGetMidY(lineRect) - height*0.6 + origin.y
+        numberRect.origin.y = CGRectGetMidY(lineRect) - height*0.5 + origin.y
         
         // Draw paragraph number
         numberString.drawWithRect(numberRect, options: [.UsesLineFragmentOrigin], attributes: numberStringAttributes, context: nil)
